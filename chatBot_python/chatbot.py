@@ -1,3 +1,4 @@
+from flask import Flask, render_template, request
 import random
 import json
 import pickle
@@ -7,8 +8,10 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 from keras.models import load_model
 
+app = Flask(__name__)
+
 lemmatizer = WordNetLemmatizer()
-intents = json.loads(open('C:\Simplilearn\Python\Python projects\chatbot using python\chatbot\intents.json').read())
+intents = json.loads(open('/Users/sarahsarah/Desktop/CFA-INSTA/IA/cfa_chatbot/IAChatBotGroup/chatBot_python/intents.json').read())
 
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
@@ -44,17 +47,31 @@ def predict_class (sentence):
 def get_response(intents_list, intents_json):
     tag = intents_list[0]['intent']
     list_of_intents = intents_json['intents']
+    result = "Je ne comprends pas ce que vous dites."
     for i in list_of_intents:
         if i['tag'] == tag:
-            result = random.choice (i['responses'])
+            result = random.choice(i['responses'])
             break
     return result
 
 print("GO! Bot is running!")
 
-while True:
-    message = input("")
-    ints = predict_class (message)
-    res = get_response (ints, intents)
-    print (res)
+@app.route('/')
+def home():
+    return render_template('chat.html')
+
+@app.route('/get')
+def get_bot_response():
+    user_text = request.args.get('msg')
+    ints = predict_class(user_text)
+    res = get_response(ints, intents)
+    return res
+
+# while True:
+#     message = input("")
+#     ints = predict_class (message)
+#     res = get_response (ints, intents)
+#     print (res)
     
+if __name__ == '__main__' :
+    app.run(debug=True)
