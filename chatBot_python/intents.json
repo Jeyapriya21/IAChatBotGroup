@@ -1,7 +1,7 @@
 {"intents": [
         {"tag": "greeting",
-         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
-         "responses": ["Hello", "Good to see you again", "Hi there, how can I help?"],
+         "patterns": ["Bonjour", "Coucou", "Comment ça va?", "J'ai une question", "Dis" , "Hello", "Salut", "Bye"],
+         "responses": ["Bonjour", "Content de vous revoir", "Bonjour, comment je peux vous aider?"],
          "context": [""]
         },
         {"tag": "goodbye",
@@ -10,8 +10,8 @@
          "context": [""]
         },
         {"tag": "thanks",
-         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
-         "responses": ["My pleasure", "You're Welcome"],
+         "patterns": ["Merci", "Je vous remercie", "Cool, merci", "Good", "Merci de ton aide"],
+         "responses": ["Avec plaisir", "Heureux d'avoir pu vous aider"],
          "context": [""]
         },
         {"tag": "query",
